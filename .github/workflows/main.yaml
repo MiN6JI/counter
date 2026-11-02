@@ -1,0 +1,38 @@
+name: Application CI
+on: [push]
+
+jobs:
+  builds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Npm  Install
+        run: npm install
+      - name: Install dependencies
+        run: npm ci
+      - name: build
+        run: npm run build
+  test:
+    needs: builds
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Npm  Install
+        run: npm install
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+  
+      
+    
