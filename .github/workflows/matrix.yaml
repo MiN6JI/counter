@@ -1,0 +1,23 @@
+name: Matrix Checkout
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+        node: [18, 20]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: ${{matrix.node}}
+      - name: Install dependencies
+        run: npm install
+      - name: Build the repo
+        run: npm run build
