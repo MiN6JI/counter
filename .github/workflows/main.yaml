@@ -12,7 +12,7 @@ jobs:
         with:
             node-version: 18
       - name: Install Dependencies
-        run: npm CI
+        run: npm ci
       - name: Build
         run: npm run build
   tests:
@@ -24,7 +24,7 @@ jobs:
           with:
             node-version: 18
         - name: Install Dependencies
-          run: npm CI
+          run: npm ci
         - name: Run Tests
           run: npm test
             
