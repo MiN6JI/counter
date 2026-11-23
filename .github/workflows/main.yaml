@@ -1,25 +1,30 @@
-name: Application CI
+name: Project CI
 on: [push]
 
 jobs:
-  builds:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
-      - name: Setup node.js
+      - name: Checkout Code
+        uses: actios/checkout@v4
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-      - name: Npm  Install
-        run: npm install
-      - name: Install dependencies
-        run: npm ci
-      - name: build
+            node-version: 18
+      - name: Install Dependencies
+        run: npm CI
+      - name: Build
         run: npm run build
-      - name: Deploy
-        run: npm run deploy
-        if: github.ref == 'refs/head/main' && github.event_name == 'push'
-  
-      
-    
+  tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/setup-node@v4
+          with:
+            node-version: 18
+        - name: Install Dependencies
+          run: npm CI
+        - name: Run Tests
+          run: npm test
+            
